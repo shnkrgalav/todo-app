@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .todo-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .todo-container h2 {
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #todo-input {
+            width: 80%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        #todo-input:focus {
+            border-color: #6200ea;
+        }
+
+        #add-todo {
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #add-todo:hover {
+            background-color: #3700b3;
+        }
+
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .todo-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .todo-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .todo-item span {
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .todo-item button {
+            background-color: #ff5252;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .todo-item button:hover {
+            background-color: #d32f2f;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h2>To-Do List</h2>
+        <input type="text" id="todo-input" placeholder="Add a new task">
+        <button id="add-todo">Add Task</button>
+        <ul id="todo-list" class="todo-list"></ul>
+    </div>
+
+    <script>
+         // Selecting DOM elements
+ const todoInput = document.getElementById('todo-input');
+ const addTodoButton = document.getElementById('add-todo');
+ const todoList = document.getElementById('todo-list');
+
+ // Function to create a new To-Do item
+ function createTodoItem(task) {
+     // Create elements
+     const todoItem = document.createElement('li');
+     const todoText = document.createElement('span');
+     const deleteButton = document.createElement('button');
+
+     // Assign classes and content
+     todoItem.classList.add('todo-item');
+     todoText.textContent = task;
+     deleteButton.textContent = 'Delete';
+
+     // Append the text and button to the list item
+     todoItem.appendChild(todoText);
+     todoItem.appendChild(deleteButton);
+
+     // Append the list item to the list
+     todoList.appendChild(todoItem);
+
+     // Event listener for delete button
+     deleteButton.addEventListener('click', function() {
+         todoList.removeChild(todoItem);
+     });
+ }
+
+ // Event listener for adding a new task
+ addTodoButton.addEventListener('click', function() {
+     const task = todoInput.value.trim();
+
+     if (task !== "") {
+         createTodoItem(task);
+         todoInput.value = ""; // Clear the input field
+     }
+ });
+
+ // Optional: Add task on pressing Enter key
+ todoInput.addEventListener('keypress', function(event) {
+     if (event.key === 'Enter') {
+         addTodoButton.click();
+     }
+ });
+
+    </script>
+</body>
+</html>
